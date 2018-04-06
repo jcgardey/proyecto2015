@@ -1,0 +1,39 @@
+{% extends 'baseBackend.html.twig' %}
+
+{% block title %}
+	<title>Ingresar un Usuario</title>
+{% endblock title %}
+
+{% block container %}
+	<h2>Ingresar Usuario</h2>
+	{% if estado is defined %}
+		<p style="text-align:center;">{{ estado }}</p>
+	{% endif %}
+	
+	{{ form_start(form,{ 'attr': {'class': 'altaUsuario'} }) }}
+		{{ form_errors(form) }}
+		<div class="form-group">
+			{{ form_label(form.username, 'Nombre de Usuario') }}
+			{{ form_widget(form.username )}}
+			{{ form_errors(form.username) }}
+		</div>
+		<div class="form-group">
+			{{ form_label(form.password, 'Contraseña') }}
+			{{ form_widget(form.password) }}
+			{{ form_errors(form.password) }}
+		</div>
+		<div class="form-group">
+			{{ form_label(form.mail, 'Email') }}
+			{{ form_widget(form.mail) }}
+			{{ form_errors(form.mail) }}
+		</div>
+		<div class="form-group">
+			{{ form_label(form.rol, 'Rol del Usuario') }}
+			{{ form_widget(form.rol) }}
+			{{ form_errors(form.rol) }}
+		</div>
+		<div class="form-group">
+			{{ form_widget(form.enviar) }}
+		</div>
+	{{ form_end(form) }}
+{% endblock container %}

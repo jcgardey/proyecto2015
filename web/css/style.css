@@ -1,0 +1,513 @@
+body {
+	padding: 0;
+	margin: 0;
+}
+
+header h1 {
+	font-family: monospace;
+	text-align: center;
+}
+header {
+	width: auto;
+	margin:5px;
+}
+
+nav {
+	background-color:#3366FF;
+	padding-right: 20px;
+	margin:10px;
+	border-radius: 5px;
+}
+
+aside, .responsablesAsignables {
+	padding:10px;
+	border:2px solid #FF7519; 
+	border-radius: 10px;
+}
+
+aside div.asideBlock p {
+	text-align: center;
+	color: #7A7A52;
+}
+
+nav ul {
+	list-style-type: none;
+	display: inline;
+}
+
+nav a {
+	display: inline-block;
+	padding: 10px;
+}
+nav ul li a {	
+	font-weight: bold;
+	font-size: 15px;
+	font-family: "Verdana", sans-serif;
+	text-decoration: none;
+	color: white;
+}
+
+nav ul li a:hover {
+	background-color:#7094FF;
+} 
+
+form label {
+	width: 30%;
+	display: inline-block;
+}
+
+input[type="text"], input[type="password"], input[type="number"], input[type="email"], input[type="character"], input[type="datetime"]  {
+	border: 2px solid #FF7519;
+	width: 20%;
+	height: 25px;
+	border-radius: 5px;
+}
+
+form.login label {
+	display: inline-block;
+}
+
+
+
+input[type="submit"], button {
+	background: #3366FF;
+	font-weight: bold;
+	color: white; 
+	height: 30px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.boton {
+	background: #3366FF;
+   	border-radius: 5px;
+  	padding: 5px;
+  	text-decoration: none;
+  	font-family: "Arial";
+	color: white;
+	cursor: pointer;
+}
+
+.boton:hover {
+  	background: #3cb0fd;
+  	text-decoration: none;
+}
+
+.main h2, section h2, h1, #imagenPrincipal, form.altaAlumno, form.altaCuota, form.altaResponsable, form.altaUsuario, form.login, form.modificarConfiguracion, form.modificarUsuario   {
+	text-align: center;
+}
+
+.izquierda {
+	float: left;
+}
+.centrado {
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.main h2, section h2 {
+	font-family: "Verdana", sans-serif;
+	color:#7A7A52;
+}
+
+form.altaAlumno, form.altaCuota, form.altaResponsable, form.altaUsuario, form.login, form.modificarConfiguracion  {
+	margin-top: 50px;
+}
+.form-group {
+	margin:20px 5px;
+	text-align: center;
+}
+
+form .altaAlumno {
+	padding-left: 10%; 
+}
+
+.logout span {
+	color:#FF7519;
+}
+
+aside ul {
+	list-style-type: none;
+	padding: 0px;
+}
+
+aside ul li {
+	margin-top: 10px;
+}
+
+aside ul li a {
+	font-weight: bold;
+	color: #3366FF;
+	text-decoration: none;
+}
+
+
+aside ul li a:hover {
+	display: inline-block;
+	background-color: white;
+	color: black; 
+}
+
+aside h3 {
+	text-align: center;
+}
+
+.texto-principal {
+	background-color: #FF7519;
+	padding: 20px;
+	width: 60%;
+	margin: 10px auto;
+	border-radius: 10px;
+	text-align: justify;
+	font-style: italic;
+	font-family: "Arial", sans-serif;
+}
+
+img {
+	height: auto;
+	max-width: 100%;
+}
+
+
+form.altaAlumno {
+	width: 95%;
+}
+
+#imagenPrincipal {
+	width: 60%;
+	margin: 20px auto;
+	height: auto;
+	text-align: center;
+}
+span {
+	font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+	nav ul li {
+		width: 100%;
+		text-align: center;
+	}
+	nav ul {
+		display: none;
+
+	}
+	nav:hover ul {
+		display: block;
+	}
+	.handle {
+		display: block;
+	}
+	#imagenPrincipal {
+		display: none;
+	}
+	label {
+		display: block;
+		width: 50%;
+	}
+
+	input[type="text"], input[type="password"], input[type="number"], input[type="email"], input[type="character"], input[type="datetime"], select  {
+		border: 1px solid #FF7519;
+		width: 50%;
+		height: 25px;
+		border-radius: 5px;
+		display: block;
+		margin:0 auto;
+	}
+
+	aside {
+		width: 70%;
+		margin: 10px auto;
+	}
+
+	.main {
+		width: 90%;
+		margin: 10px auto;
+	}
+
+	input [type="submit"], button[type="submit"] {
+		width: 15%;
+	}
+
+	div.contenedorListadoPrincipal {
+		display: none;
+	}
+
+	div.contenedorListado .boton {
+		margin-bottom: 5px;
+	}
+
+	div.contenedorListado {
+		border-bottom: 1px solid #3366FF;
+	}
+
+	textarea {
+		display: block;
+		margin: 0 auto;
+	}
+}
+
+
+@media screen and (min-width: 769px) {
+	nav ul li {
+		display: inline;
+		margin-right: 30px;
+	}
+	.handle {
+		display: none;
+	}
+
+	#login, .logout {
+		float: right;
+	}
+	label {
+		display: inline-block;
+	}
+
+	form.altaAlumno label {
+		width: 30%;
+	}
+
+	input[type="text"], input[type="password"], input[type="number"], input[type="email"], input[type="character"], input[type="datetime"], select  {
+		border: 2px solid #FF7519;
+		width: 20%;
+		height: 25px;
+		border-radius: 5px;
+	}
+
+	form.login label {
+		width: 10%;
+	}
+
+	aside {
+		float: left;
+		width: 20%;
+		margin:10px 5px;
+	}
+
+	.main {
+		float:left;
+		width: 74%;
+		margin: 5px;
+	}
+
+	input [type="submit"], button[type="submit"] {
+		width: 10%;
+	}
+
+	
+	div.listadoAlumnos p {
+		margin-right: 10px;
+	}
+
+	div.listadoAlumnos .dni{
+		width: 20%;
+	}
+
+	div.listadoAlumnos .nombre {
+		width: 20%;
+	}
+
+	div.listadoAlumnos .fecha {
+		width: 15%;
+	}
+
+	div.contenedorListado .botones {
+		width: 15%;
+	}
+
+	.botones .boton {
+		display: block;
+		margin: 5px;
+	}
+
+	.botones {
+		display: inline-block;
+	}
+
+	div.contenedorListado p, div.contenedorListadoPrincipal p, div.contenedorListado h4 {
+		display: inline-block;
+		margin-right: 10px;
+	}
+	div.listadoUsuarios p {
+		width: 25%;
+	}
+
+	div.listadoUsuarios p.rolUsuario, div.listadoUsuarios p.nombreUsuario  {
+		width: 20%;
+	}
+
+	div.listadoUsuarios p.emailUsuario {
+		width: 35%;
+	}
+
+
+	div.contenedorListado .titulo {
+		display: none;
+	}
+
+	div.listadoResponsables p {
+		width: 26%;
+	}
+
+	div.listadoResponsables p.fecha {
+		width: 20%;
+	}
+
+	div.informacionAlumno {
+		width: 45%;
+		display: inline-block;
+	}
+	
+	.informacionAlumno h4 {
+		width: 20%;
+	}
+
+	.informacionAlumno h4.tipoDocumentoAlumno, .informacionAlumno h4.numeroDocumentoAlumno {
+		width: 40%;
+	}
+
+	.informacionAlumno h4.direccionAlumno, .informacionAlumno h4.fechaNacimientoAlumno,  .informacionAlumno h4.fechaIngresoAlumno,  
+	.informacionAlumno h4.fechaEgresoAlumno {
+		width: 35%;
+	}
+
+	.informacionAlumno h4.nombreAlumno, .informacionAlumno h4.apellidoAlumno {
+		width: 30%;
+	}
+
+	div.listadoCuotas p {
+		width: 15%;
+	}
+
+	div.listadoCuotas p.anioCuota {
+		width: 10%;
+	}
+	div.listadoCuotas p.numeroCuota, div.listadoCuotas p.montoCuota {
+		width: 15%;
+	}
+
+	div.listadoCuotas .registro {
+		display: inline-block;
+		width: 20%;
+		margin: 0px;
+	} 
+
+	div.listadoCuotas .registro p {
+		width: 60%;
+	}
+
+	div.listadoIngresoComisiones p.itemComision {
+		width: 25%;
+	}
+
+	textarea {
+		width: 20%;
+		height:7em;
+		resize: none;
+	}
+
+	.responsablesAsignables {
+		width: 80%;
+	}
+
+	#mapa {
+		width: 60%;
+	}
+}
+
+.handle {
+	width: 100%;
+	background:#7B98EF;
+	text-align: center;
+	padding: 10px;
+	color: white;
+	font-family: "Verdana", sans-serif;
+}
+
+div.contenedorListado .titulo, div.contenedorListadoPrincipal p, div.contenedorListado h4 {
+	font-family: "Verdana", sans-serif;
+	font-weight: bold;
+	color: #FF7519;
+}
+
+div.contenedorListado {
+	padding: 10px 0px;
+}
+
+.masInfo:link .masInformacion {
+	display: none;
+}
+.masInfo:hover .masInformacion {
+	display:block;
+}
+
+div.paginas ul {
+	list-style: none;
+}
+
+div.paginas ul li {
+	display: inline;
+	margin-right: 5px;
+}
+
+
+div.paginas a {
+	text-decoration: none;
+	color:#FF7519;
+	font-weight: bold;
+}
+
+div.paginas ul li a:hover {
+	text-decoration: underline;
+}
+
+div.paginas ul {
+	display: inline-block;
+}
+
+textarea {
+	border: 2px solid #FF7519;
+	border-radius: 5px;
+}
+
+footer {
+	clear: both;
+}
+
+#graficoIngresosPorMes, #graficoIngresosPorAnio {
+	margin: 20px auto;
+}
+
+form ul {
+	list-style-type: none;
+	margin: auto;
+}
+
+form ul li {
+	color: #3366ff;
+	font-family: "Arial", sans-serif;
+}
+
+#alumno_responsables label{
+	text-align: left;
+
+} 
+
+.responsablesAsignables {
+	margin: 20px auto;
+}
+
+#mapa {
+	height:350px;
+}
+
+p,label {
+	font-family: "Arial", sans-serif;
+}
+
+.responsablesAsignables div.form-group label {
+	font-size: 13px;
+	text-align: left;
+}
+

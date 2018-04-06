@@ -1,0 +1,61 @@
+{% extends 'baseBackend.html.twig' %}
+
+{% block title %}
+	<title>Ingresar Nueva Cuota</title>
+{% endblock title %}
+
+{% block container %}
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$("#btnEliminar").click(function () {
+				if (confirm('¿Esta seguro que quiere eliminar la cuota?')) {
+					$("#formEliminar").submit();
+				}
+			});
+		});
+	</script>
+	<h2>Ingresar Cuota</h2>
+	{% if delete_form is defined %}
+			<div class="form-group">
+				{{ form_start(delete_form,{'attr':{'id': 'formEliminar' }}) }}
+					<button type="button" id="btnEliminar">Eliminar Cuota</button>
+				{{ form_end(delete_form) }}
+			</div>
+		{% endif %}
+	{{ form_start(form) }}
+		{{ form_errors(form) }}
+		<div class="form-group">
+			{{ form_label(form.anio, 'Año de la Cuota') }}
+			{{ form_widget(form.anio,{'attr':{'placeholder': '4 dígitos, Ej: 2014' }}) }}
+			{{ form_errors(form.anio) }}
+		</div>
+		<div class="form-group">
+			{{ form_label(form.mes, 'Mes de la Cuota') }}
+			{{ form_widget(form.mes) }}
+			{{ form_errors(form.mes) }}
+		</div>
+		<div class="form-group">
+			{{ form_label(form.numero,'Número de Cuota') }}
+			{{ form_widget(form.numero,{'attr':{'placeholder': 'Debe ser mayor a cero' }}) }}
+			{{ form_errors(form.numero) }}
+		</div>
+		<div class="form-group">
+			{{ form_label(form.monto, 'Monto ($)') }}
+			{{ form_widget(form.monto) }}
+			{{ form_errors(form.monto) }}
+		</div>
+		<div class="form-group">
+			{{ form_label(form.tipo, 'Tipo de Cuota') }}
+			{{ form_widget(form.tipo) }}
+			{{ form_errors(form.tipo) }}
+		</div>
+		<div class="form-group">
+			{{ form_label(form.comisionCobrador, 'Comisión del Cobrador (%)') }}
+			{{ form_widget(form.comisionCobrador,{'attr':{'placeholder': 'Valor entero entre 0 y 100, Ej: 25' }}) }}
+			{{ form_errors(form.comisionCobrador) }}
+		</div>
+		<div class="form-group">
+			{{ form_widget(form.enviar) }}
+		</div>
+	{{ form_end(form) }}
+{% endblock container%}

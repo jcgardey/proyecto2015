@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block user %}
+	<li><div class="logout"><span>{{ app.user.username }}</span><a href="{{ url('logout') }}">Salir</a></div></li>
+{% endblock %}
+
+{% block main %}
+		<aside>
+				{% if is_granted('ROLE_GESTION') %}
+					<div class="asideBlock">
+						<p>Alumnos</p>
+						<ul>
+							{% if is_granted('ROLE_ADMIN') %}
+								<li><a href="{{ url('nuevo_alumno') }}">Ingresar Alumno</a></li>
+							{% endif %}
+							<li><a href="{{ url('lista_alumnos') }}">Listado de alumnos</a></li>
+						</ul>
+					</div>
+				{% endif %}
+				{% if is_granted('ROLE_ADMIN') %}	
+					<div class="asideBlock">
+						<p>Usuarios</p>
+						<ul>
+							<li><a href="{{ url ('nuevo_usuario') }}">Ingresar Usuario</a></li>
+							<li><a href="{{ url ('lista_usuarios') }}">Listado de Usuarios</a></li>
+						</ul>
+					</div>
+					<div class="asideBlock">
+						<p>Responsables</p>
+						<ul>
+							<li><a href="{{ url('nuevo_responsable') }}">Ingresar Responsable</a></li>
+							<li><a href="{{ url('lista_responsables') }}">Listado de Responsables</a></li>
+						</ul>
+					</div>
+				{% endif %}
+				{% if is_granted('ROLE_GESTION') %}
+					<div class="asideBlock">
+						<p>Cuotas</p>
+						<ul>
+							<li><a href="{{ url('nueva_cuota') }}">Ingresar Cuota</a></li>
+							<li><a href="{{ url('lista_cuotas') }}">Listado de Cuotas</a></li>
+							{# chequea que solo tenga rol de gestión #}
+							{% if is_granted('ROLE_GESTION') and not is_granted('ROLE_ADMIN') %}
+								<li><a href="usuario.php?action=comisionPorMesyAnioDeUnUsuario">Monto Total Ingresado Por Comisiones</a></li>
+							{% endif %}
+						</ul>
+					</div>
+				{% endif %}
+					<div class="asideBlock">
+						<p>Listados</p>
+						<ul>
+							<li><a href="alumno.php?action=listadoAlumnosMatriculaPaga">Listado de alumnos con matr&iacute;cula paga</a></li>
+							<li><a href="cuota.php?action=listadoCuotasPagadas">Listado de cuotas pagadas por mes y a&ntilde;o</a></li>
+							<li><a href="cuota.php?action=listadoCuotasImpagas">Listado de cuotas impagas por mes y a&ntilde;o</a></li>
+							<li><a href="cuota.php?action=mostrarEstadisticas">Estad&iacute;sticas de Ingresos</a></li>
+						</ul>
+					</div>
+					<div class="asideBlock">
+						<p>Localizaci&oacute;n</p>
+						<ul>
+							<li><a href="usuario.php?action=localizarAlumnos">Localizar Alumnos</a></li>
+						</ul>
+					</div>
+				{% if is_granted('ROLE_ADMIN') %}
+					<div class="asideBlock">
+						<p>Configuraciones</p>
+						<ul>
+							<li><a href="configuracion.php?action=mostrarConfiguraciones">Configurar Sistema</a></li>
+						</ul>
+					</div>
+				{% endif %}
+		</aside>
+		<div class="main">
+			{% block container %}
+			{% endblock container %}
+		</div>
+{% endblock main %}

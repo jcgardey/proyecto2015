@@ -1,0 +1,35 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
+security:
+
+    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    encoders:
+        StoreBundle\Entity\Usuario: plaintext
+    providers:
+        our_db_provider:
+            entity: 
+                class: StoreBundle:Usuario
+                property: username
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_GESTION, ROLE_CONSULTA]
+        ROLE_GESTION: ROLE_CONSULTA
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            anonymous: ~
+            provider: our_db_provider
+            form_login:
+                login_path: login
+                check_path: login
+                default_target_path: home
+            logout:
+                path: /logout
+                target: /index    
+            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+
+    access_control:
+        - { path: ^/home, roles: ROLE_CONSULTA }

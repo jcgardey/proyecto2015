@@ -1,0 +1,22 @@
+<div class="form-group" style="border: 1px solid black" id="pago__name__">
+   <div class="form-group">
+   		{{ form_label(form.cuota, 'Cuota') }}
+   		{{ form_widget(form.cuota) }}
+   		{{ form_errors(form.cuota) }}
+   </div>
+   <div class="form-group">
+   		{{ form_label(form.becado, 'Becado') }}
+   		{{ form_widget(form.becado) }}
+   </div>
+   <div class="form-group">
+   		{{ form_label(form.fecha, 'Fecha de Pago') }}
+   		{{ form_widget(form.fecha) }}
+   		{{ form_errors(form.fecha) }}
+   		
+   		{{ form_widget(form.fechaAlta)}}
+		{{ form_widget(form.fechaActualizado) }}
+   </div>
+   <div class="form-group">
+   		<button class="eliminar boton" type="button" id="__name__">Eliminar Pago</button>
+   </div>
+</div>

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block user %}
+	<li><a id="login" href="{{ url('login') }}">Iniciar Sesi&oacute;n</a></li>
+{% endblock %}
+
+{% block main %}
+	<section>
+			<div id="imagenPrincipal">
+				<img src="{{ asset('images/frenteEscuela.jpg') }}" alt="frente de escuela" />
+			</div>
+			<h2>INFORMARCI&Oacute;N INSTITUCIONAL</h2>
+			<p class="texto-principal">Escuela Graduada</p>
+	</section>
+{% endblock %}

@@ -1,0 +1,391 @@
+<?php
+
+namespace StoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Alumno
+ *
+ * @ORM\Table(name="alumno")
+ * @ORM\Entity(repositoryClass="StoreBundle\Repository\AlumnoRepository")
+ */
+class Alumno
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="idAlumno", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tipoDocumento", type="string", length=255)
+     */
+    private $tipoDocumento;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="numeroDocumento", type="string", length=255)
+     */
+    private $numeroDocumento;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="apellido", type="string", length=255)
+     */
+    private $apellido;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre", type="string", length=255)
+     */
+    private $nombre;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fechaNacimiento", type="datetime")
+     */
+    private $fechaNacimiento;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sexo", type="string", length=255)
+     */
+    private $sexo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mail", type="string", length=255)
+     */
+    private $mail;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="direccion", type="string", length=255)
+     */
+    private $direccion;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fechaIngreso", type="datetime")
+     */
+    private $fechaIngreso;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fechaEgreso", type="datetime", nullable=true)
+     */
+    private $fechaEgreso;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fechaAlta", type="datetime")
+     */
+    private $fechaAlta;
+
+    /**
+    * @ORM\OneToMany(targetEntity="Pago", mappedBy="alumno")
+    *
+    **/
+    private $pagos;
+
+    /**
+    * @ORM\ManyToMany(targetEntity="Responsable", inversedBy="alumnos")
+    * @ORM\JoinTable(name="alumno_responsable",
+    *       joinColumns={ @ORM\JoinColumn(name="idAlumno", referencedColumnName="idAlumno") },
+    *       inverseJoinColumns={ @ORM\JoinColumn(name="idResponsable", referencedColumnName="idResponsable") }
+    * )
+    **/
+    private $responsables;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set tipoDocumento
+     *
+     * @param string $tipoDocumento
+     *
+     * @return Alumno
+     */
+    public function setTipoDocumento($tipoDocumento)
+    {
+        $this->tipoDocumento = $tipoDocumento;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoDocumento
+     *
+     * @return string
+     */
+    public function getTipoDocumento()
+    {
+        return $this->tipoDocumento;
+    }
+
+    /**
+     * Set numeroDocumento
+     *
+     * @param string $numeroDocumento
+     *
+     * @return Alumno
+     */
+    public function setNumeroDocumento($numeroDocumento)
+    {
+        $this->numeroDocumento = $numeroDocumento;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroDocumento
+     *
+     * @return string
+     */
+    public function getNumeroDocumento()
+    {
+        return $this->numeroDocumento;
+    }
+
+    /**
+     * Set apellido
+     *
+     * @param string $apellido
+     *
+     * @return Alumno
+     */
+    public function setApellido($apellido)
+    {
+        $this->apellido = $apellido;
+
+        return $this;
+    }
+
+    /**
+     * Get apellido
+     *
+     * @return string
+     */
+    public function getApellido()
+    {
+        return $this->apellido;
+    }
+
+    /**
+     * Set nombre
+     *
+     * @param string $nombre
+     *
+     * @return Alumno
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * Set fechaNacimiento
+     *
+     * @param \DateTime $fechaNacimiento
+     *
+     * @return Alumno
+     */
+    public function setFechaNacimiento($fechaNacimiento)
+    {
+        $this->fechaNacimiento = $fechaNacimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaNacimiento
+     *
+     * @return \DateTime
+     */
+    public function getFechaNacimiento()
+    {
+        return $this->fechaNacimiento;
+    }
+
+    /**
+     * Set sexo
+     *
+     * @param string $sexo
+     *
+     * @return Alumno
+     */
+    public function setSexo($sexo)
+    {
+        $this->sexo = $sexo;
+
+        return $this;
+    }
+
+    /**
+     * Get sexo
+     *
+     * @return string
+     */
+    public function getSexo()
+    {
+        return $this->sexo;
+    }
+
+    /**
+     * Set mail
+     *
+     * @param string $mail
+     *
+     * @return Alumno
+     */
+    public function setMail($mail)
+    {
+        $this->mail = $mail;
+
+        return $this;
+    }
+
+    /**
+     * Get mail
+     *
+     * @return string
+     */
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    /**
+     * Set direccion
+     *
+     * @param string $direccion
+     *
+     * @return Alumno
+     */
+    public function setDireccion($direccion)
+    {
+        $this->direccion = $direccion;
+
+        return $this;
+    }
+
+    /**
+     * Get direccion
+     *
+     * @return string
+     */
+    public function getDireccion()
+    {
+        return $this->direccion;
+    }
+
+    /**
+     * Set fechaIngreso
+     *
+     * @param \DateTime $fechaIngreso
+     *
+     * @return Alumno
+     */
+    public function setFechaIngreso($fechaIngreso)
+    {
+        $this->fechaIngreso = $fechaIngreso;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaIngreso
+     *
+     * @return \DateTime
+     */
+    public function getFechaIngreso()
+    {
+        return $this->fechaIngreso;
+    }
+
+    /**
+     * Set fechaEgreso
+     *
+     * @param \DateTime $fechaEgreso
+     *
+     * @return Alumno
+     */
+    public function setFechaEgreso($fechaEgreso)
+    {
+        $this->fechaEgreso = $fechaEgreso;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaEgreso
+     *
+     * @return \DateTime
+     */
+    public function getFechaEgreso()
+    {
+        return $this->fechaEgreso;
+    }
+
+    /**
+     * Set fechaAlta
+     *
+     * @param \DateTime $fechaAlta
+     *
+     * @return Alumno
+     */
+    public function setFechaAlta($fechaAlta)
+    {
+        $this->fechaAlta = $fechaAlta;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaAlta
+     *
+     * @return \DateTime
+     */
+    public function getFechaAlta()
+    {
+        return $this->fechaAlta;
+    }
+}
+

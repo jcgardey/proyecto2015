@@ -1,0 +1,22 @@
+username.repetido: Ya existe un usuario con el mismo nombre
+username.largo: El nombre de usuario no puede excederse de 255 caracteres
+contraseña.corta: La contraseña debe contener por lo menos 6 caracteres
+contraseña.larga: La contraseña no puede contener mas de 15 caracteres
+rol.invalido: Seleccione un rol válido
+email.invalido: El email ingresado no es válido
+usuario.invalido: Un usuario con rol de Administrador no puede tener asignado un responsable
+tipo.invalido: El tipo de responsable debe ser Madre, Padre o Tutor
+campo.vacio: El campo no puede quedar vacio
+campo.largo: La longitud del texto no puede superar los 255 caracteres
+fecha.invalida: La fecha ingresada no es correcta
+sexo.invalido: El sexo ingresado de ser Masculino o Femenino
+responsable.invalido: El usuario asignado al responsable debe ser un usuario de gestión o de consulta y no puede estar asignado a otro responsable
+tipoDocumento.invalido: El tipo de documento selccionado no es válido.
+alumno.invalido: Debe seleccionar al menos un responsable cuyo rol sea Gestión.
+numeroCuota.minimo: El número de cuota mínimo es 1
+numero.invalido: El número ingresado no es correcto
+monto.invalido: El monto ingresado debe ser un número entero mayor a cero
+porcentaje.invalido: La comisión del cobrador debe ser un número entero mayor que cero.
+porcentaje.maximo: La comisión del cobrador no puede excederse del 100%.
+anio.invalido: El año ingresado no es correcto.
+pago.invalido: Cada cuota puede ser registrada únicamente en un solo pago.

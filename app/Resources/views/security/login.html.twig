@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	<title>Iniciar Sesi&oacute;n</title>
+{% endblock title %}
+
+{% block user %}
+	<li><a id="login" href="index.php?action=login">Iniciar Sesi&oacute;n</a></li>
+{% endblock %}
+
+{% block main %}
+	<section>
+			<h2>Iniciar Sesi&oacute;n</h2>
+			{% if error %}
+				<p style="text-align:center">{{ error.messageKey| trans }}</p>
+			{% endif %}
+			<form class="login" action="{{ path('login') }}" method="post">
+				<div class="form-group">
+					<label for="nombreUsuario">Usuario</label>
+					<input type="text" id="nombreUsuario" name="_username" required="required" value="{{ last_username }}" />
+				</div>
+				<div class="form-group">
+					<label for="passwordUsuario">Contrase&ntilde;a</label>
+					<input type="password" id="passwordUsuario" name="_password" required="required" />
+				</div>
+				<input type="submit" value="Ingresar" />
+			</form>
+		</section>
+{% endblock main %}

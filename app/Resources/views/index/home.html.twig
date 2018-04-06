@@ -1,0 +1,11 @@
+{% extends 'baseBackend.html.twig' %}
+
+{% block title %}
+	<title>Inicio</title>
+{% endblock title %}
+{% block container %}
+	{# Se chequea si el usuario únicamente tiene rol de consulta #}
+	{% if is_granted('ROLE_CONSULTA') and not is_granted('ROLE_GESTION') and app.user.responsable is empty  %}
+		<p>Este usuario no est&aacute; asignado a ning&uacute;n responsable por lo cual no podr&aacute; acceder a ning&uacute;n listado</p>
+	{% endif %}
+{% endblock container %}

@@ -1,0 +1,46 @@
+{% extends 'baseBackend.html.twig' %}
+
+{% block title %}
+	<title>Listado de Responsables</title>
+{% endblock %}
+	
+{% block container %}
+	<h2>Listado de Responsables</h2>
+	{% if app.session.flashbag.has('estado') %}
+		{% for mensaje in app.session.flashbag.get('estado') %}
+			<p style="text-align:center">{{ mensaje }}</p>
+		{% endfor %}
+	{% endif %}
+	<div class="contenedorListadoPrincipal listadoResponsables">
+		<p>Apellido</p>
+		<p>Nombre</p>
+		<p>Fecha de Nacimiento</p>
+	</div>
+	{% for responsable in responsables %}
+		<div class="contenedorListado listadoResponsables">
+			<p class="titulo">Apellido</p>
+			<p>{{ responsable.apellido }}</p>
+			<p class="titulo">Nombre</p>
+			<p>{{ responsable.nombre }}</p>
+			<p class="titulo">Fecha de Nacimiento</p>
+			<p class="fecha">{{ responsable.fechaNacimiento | date('d/m/Y') }}</p>
+			<div class="botones">
+				<a class="boton" href="{{ url('editar_responsable',{'id': responsable.id}) }}">Modificar</a>
+			</div>
+		</div>
+	{% endfor %}
+	<div class="paginas">
+		<span>P&aacute;ginas</span>
+		<ul>
+			{% if paginaActual > 1 %}
+				<a href="{{ url('lista_responsables',{'pagina': paginaActual - 1}) }}">Anterior</a>
+			{% endif %}
+			{% for i in 1..cantidadDePaginas %}
+				<li><a href="{{ url('lista_responsables',{'pagina': i}) }}">{{ i }}</a> | </li>
+			{% endfor %}
+			{% if paginaActual < cantidadDePaginas %}
+				<a href="{{ url('lista_responsables',{'pagina': paginaActual + 1}) }}">Siguiente</a>
+			{% endif %}
+		</ul>
+	</div>
+{% endblock container %}

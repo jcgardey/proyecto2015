@@ -1,0 +1,51 @@
+{% extends 'baseBackend.html.twig' %}
+
+{% block title %}
+	<title>Listado de Alumnos de la Escuela</title>
+{% endblock title %}
+
+{% block container %}
+	<h2>Listado de Alumnos</h2>
+	{% if app.session.flashBag.has('estado') %}
+		{% for message in app.session.flashBag.get('estado') %}
+			<p style="text-align:center">{{ message }}</p>
+		{% endfor %}
+	{% endif %}
+	<div class="contenedorListadoPrincipal listadoAlumnos">
+		<p class="dni">Documento</p>
+		<p class="nombre">Apellido</p>
+		<p class="nombre">Nombre</p>
+		<p class="fecha">Fecha de Nacimiento</p>
+	</div>
+	{% for alumno in alumnos %}
+		<div class="contenedorListado listadoAlumnos">
+			<p class="titulo">Documento</p>
+			<p class="dni">{{ alumno.numeroDocumento }}</p>
+			<p class="titulo">Nombre</p>
+			<p class="nombre">{{ alumno.nombre }}</p>
+			<p class="titulo">Apellido</p>
+			<p class="nombre">{{ alumno.apellido }}</p>
+			<p class="titulo">Fecha de Nacimiento</p>
+			<p class="fecha">{{ alumno.fechaNacimiento | date('d/m/Y') }}</p>
+			<div class="botones">
+				{% if is_granted('ROLE_ADMIN') %}
+					<a class="boton" href="{{ url('editar_alumno',{'id': alumno.id }) }}">Ver Detalles</a>
+				{% endif %}
+			</div>
+		</div>
+	{% endfor %}
+	<div class="paginas">
+		<span>P&aacute;ginas</span>
+		<ul>
+			{% if paginaActual > 1 %}
+				<a href="{{ url('lista_alumnos',{ 'pagina': paginaActual - 1 }) }}">Anterior</a>
+			{% endif %}
+			{% for i in 1..cantidadDePaginas %}
+				<li><a href="{{ url('lista_alumnos',{'pagina': i}) }}">{{ i }}</a> | </li>
+			{% endfor %}
+			{% if paginaActual < cantidadDePaginas %}
+				<a href="{{ url('lista_alumnos',{'pagina': paginaActual + 1}) }}">Siguiente</a>
+			{% endif %}
+		</ul>
+	</div>
+{% endblock container %}

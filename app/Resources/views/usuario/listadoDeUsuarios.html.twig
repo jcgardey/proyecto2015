@@ -1,0 +1,61 @@
+{% extends 'baseBackend.html.twig' %}
+
+{% block title %}
+	<title>Listado de Usuarios</title>
+{% endblock title %}
+
+{% block container %}
+	<script>
+		function eliminarUsuario(id) {
+			if (confirm("¿Esta seguro que quiere eliminar este usuario?")) {
+				window.location = "usuario.php?action=eliminarUsuario&id=" + id;
+			}
+		}
+	</script>
+	<h2>Listado de Usuarios</h2>
+	{% if app.session.flashbag.has('estado') %}
+		{% for mensaje in app.session.flashbag.get('estado') %}
+			<p style="text-align:center">{{ mensaje }}</p>
+		{% endfor %}
+	{% endif %}
+	<div class="contenedorListadoPrincipal listadoUsuarios">
+		<p class="nombreUsuario">Nombre de Usuario</p>
+		<p class="emailUsuario">Email</p>
+		<p class="rolUsuario">Rol</p>
+	</div>
+	{% for user in usuarios %}
+		<div class="contenedorListado listadoUsuarios">
+			<p class="titulo">Nombre de Usuario</p>
+			<p class="nombreUsuario">{{ user.username }}</p>
+			<p class="titulo">Email</p>
+			<p class="emailUsuario">{{ user.mail }}</p>
+			<p class="titulo">Rol</p>
+			{% if user.rol == 'ROLE_ADMIN' %}
+				<p class="rolUsuario">Administrador</p>
+			{% endif %}
+			{% if user.rol == 'ROLE_GESTION' %}
+				<p class="rolUsuario">Gesti&oacute;n</p>
+			{% endif %}
+			{% if user.rol == 'ROLE_CONSULTA' %}
+				<p class="rolUsuario">Consulta</p>
+			{% endif %}
+			<div class="botones">
+				<a class="boton" href="{{ url('editar_usuario', { 'id': user.id }) }}">Ver Detalles</a>
+			</div>
+		</div>
+	{% endfor %}
+	<div class="paginas">
+		<span>P&aacute;ginas</span>
+		<ul>
+			{% if paginaActual > 1 %}
+				<a href="{{ url('lista_usuarios',{ 'pagina': paginaActual - 1 }) }}">Anterior</a>
+			{% endif %}
+			{% for i in 1..cantidadDePaginas %}
+				<li><a href="{{ url('lista_usuarios',{ 'pagina': i }) }}">{{ i }}</a> | </li>
+			{% endfor %}
+			{% if paginaActual < cantidadDePaginas %}
+				<a href="{{ url('lista_usuarios',{ 'pagina': paginaActual + 1 }) }}">Siguiente</a>
+			{% endif %}
+		</ul>
+	</div>
+{% endblock container %}

@@ -1,0 +1,163 @@
+{% extends 'baseBackend.html.twig' %}
+{% block title %}
+	<title>Ingresar un Alumno</title>
+{% endblock title %}
+{% block container %}
+			<h2>Ingresar un alumno</h2>
+			
+			{% if delete_form is defined %}
+				<div class="form-group">
+					{{ form_start(delete_form,{'attr':{'id': 'formEliminar'}}) }}
+						<button type="button" id="btnEliminar">Eliminar Alumno</button>
+					{{ form_end(delete_form) }}
+				</div>
+			{% endif %}
+			{{ form_start(form,{ 'attr': {'class': 'altaAlumno', 'id': 'formAlumno'}}) }}
+					{{ form_errors(form) }}
+					<div class="form-group">
+						{{ form_label(form.nombre,'Nombre') }}
+						{{ form_widget(form.nombre) }}
+						{{ form_errors(form.nombre) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.apellido,'Apellido') }}
+						{{ form_widget(form.apellido) }}
+						{{ form_errors(form.apellido) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.tipoDocumento, 'Tipo de Documento') }}
+						{{ form_widget(form.tipoDocumento) }}
+						{{ form_errors(form.tipoDocumento) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.numeroDocumento, 'Número de Documento') }}
+						{{ form_widget(form.numeroDocumento) }}
+						{{ form_errors(form.numeroDocumento) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.fechaNacimiento, 'Fecha de Nacimiento') }}
+						{{ form_widget(form.fechaNacimiento,{'attr': { 'placeholder': 'DD-MM-AAAA'}}) }}
+						{{ form_errors(form.fechaNacimiento) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.sexo, 'Sexo') }}
+						{{ form_widget(form.sexo) }}
+						{{ form_errors(form.sexo) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.mail, 'Email')}}
+						{{ form_widget(form.mail) }}
+						{{ form_errors(form.mail) }}
+					</div>
+					<div class="form-group containerMapa">
+						<label for="campoDireccion"> Seleccione el Domicilio en el Mapa</label>
+							<div id="mapa"></div>
+					</div>
+					<div class="form-group">
+						{{ form_label(form.fechaIngreso,'Fecha de Ingreso a la Escuela') }}
+						{{ form_widget(form.fechaIngreso,{'attr': { 'placeholder': 'DD-MM-AAAA'}}) }}
+						{{ form_errors(form.fechaIngreso) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.fechaEgreso,'Fecha de Egreso a la Escuela') }}
+						{{ form_widget(form.fechaEgreso,{'attr': { 'placeholder': 'DD-MM-AAAA'}}) }}
+						{{ form_errors(form.fechaEgreso) }}
+					</div>
+					<div class="form-group responsablesAsignables">
+						{{ form_label(form.responsables,'Responsables a Cargo (Al menos uno debe ser de Gestión)') }}
+						{{ form_errors(form.responsables) }}
+						{% for responsableField in form.responsables %}
+							<div class="form-group">
+								{{ form_widget(responsableField) }}
+								{{ form_label(responsableField) }}
+							</div>
+						{% endfor %}
+					</div>
+					<div class="form-group">
+						{{ form_widget(form.latitud) }}
+						{{ form_widget(form.longitud) }}
+						{{ form_errors(form.latitud) }}
+						{{ form_errors(form.longitud) }}
+						<button type="button" id="btnEnviar">Enviar</button>
+					</div>
+			{{ form_end(form) }}
+			<script type="text/javascript">
+				$(document).ready(function () {
+					var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+					var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
+					
+					//posicion inicial del mapa en la escuela
+					var lon = -57.93986;
+					var lat = -34.90580;
+					var position = new OpenLayers.LonLat(lon,lat).transform(fromProjection, toProjection);
+					      
+					map = new OpenLayers.Map("mapa", { controls: [] });
+							
+					map.addControl(new OpenLayers.Control.PanZoomBar());
+					map.addControl(new OpenLayers.Control.LayerSwitcher({}));
+					map.addControl(new OpenLayers.Control.OverviewMap());
+					map.addControl(new OpenLayers.Control.MousePosition());
+					var mapnik = new OpenLayers.Layer.OSM();
+					map.addLayer(mapnik);
+					
+					var markers = new OpenLayers.Layer.Markers( "Marcadores");
+					map.addLayer(markers);
+					
+					var click;
+					var clickMarker;
+					var lon;
+					var lat;
+
+					//si el alumno ya existe y posee un par de coordenadas la posicion inicial en el mapa es el punto de las coordenadas.
+					if ($("#alumno_latitud").val() && $("#alumno_longitud").val()) {
+						lon = $("#alumno_longitud").val();
+						lat = $("#alumno_latitud").val();
+						click = new OpenLayers.LonLat(lon,lat).transform(fromProjection, toProjection);
+						//creo un marcador en las coordenadas del alumno
+						clickMarker = new OpenLayers.Marker(click);
+						markers.addMarker(clickMarker);
+						//se centra el mapa en el domicilio del alumno
+						map.setCenter(click,15);
+					}
+					//sino tiene seteado longitud y
+					//latitud o el alumno no existe, la posicion inicial del mapa es en la escuela.
+					else {
+						lon = -57.93986;
+						lat = -34.90580; //coordenadas de la Escuela Graduada
+						var position = new OpenLayers.LonLat(lon,lat).transform(fromProjection, toProjection);
+						click = null; //se inicializa en null para controlar que cuando se envie el formulario se haya seleccionado un punto en el mapa
+						clickMarker = new OpenLayers.Marker(new OpenLayers.LonLat(0,0)); //se crea un marcador vacio
+						markers.addMarker(clickMarker);
+						map.setCenter(position,15);
+					}
+					
+					 map.events.register("click", map , function(e) {
+				   		markers.removeMarker(clickMarker);
+				   		var opx = map.getLonLatFromPixel(e.xy);
+				   		clickMarker = new OpenLayers.Marker(opx);
+				   		markers.addMarker(clickMarker);
+				   
+				   		//se convierte de forma inversa porque luego la  
+				   		// en la busqueda los recorridos se utilza la proyeccion WGS 1984
+				   		click = opx.transform(toProjection,fromProjection);
+				    	$("#alumno_longitud").val(click.lon);
+				    	$("#alumno_latitud").val(click.lat);
+					});
+
+					$("#btnEnviar").click(function() {
+						if (click != null) {
+							$("#formAlumno").submit();
+						}
+						else {
+							alert("Seleccione un Domicilio en el Mapa");
+						}
+					});
+
+					$("#btnEliminar").click(function () {
+						if (confirm('¿Esta seguro que quiere eliminar el alumno?')) {
+							$("#formEliminar").submit();
+						}
+					});
+				});
+			</script>
+{% endblock container %}

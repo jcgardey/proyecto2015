@@ -1,0 +1,118 @@
+
+{% extends 'baseBackend.html.twig' %}
+
+{% block title %}
+	<title>Cuotas de un Alumno</title>
+{% endblock title %}
+
+{% block container %}
+	<h2>Pagar Cuotas</h2>
+	<div class="form-group">
+		<button type="button" id="btnPago">Agregar Pago</button>
+	</div>
+	{% if estado is defined %}
+		<p>{{ estado }}</p>
+	{% endif %}
+		{{ form_start(form,{'attr': {'id': 'formPagos'}}) }}
+			{{ form_errors(form) }}
+			 <div class="form-group" id="lista-pagos" data-prototype="{% filter escape %} {{ include('::prototype.html.twig', { 'form': form.pagos.vars.prototype}) }}{% endfilter %}">
+			 	{% for field in form.pagos %}
+				 		<div class="form-group" style="border: 1px solid black" id="pago__name__">
+				 			<div class="form-group">
+						   		{{ form_label(field.cuota, 'Cuota') }}
+						   		{{ form_widget(field.cuota) }}
+						   		{{ form_errors(field.cuota) }}
+
+						   </div>
+						   <div class="form-group">
+						   		{{ form_label(field.becado, 'Becado') }}
+						   		{{ form_widget(field.becado) }}
+						   		{{ form_errors(field.becado) }}
+						   </div>
+						   <div class="form-group">
+						   		{{ form_label(field.fecha, 'Fecha de Pago') }}
+						   		{{ form_widget(field.fecha) }}
+						   		{{ form_errors(field.fecha) }}
+
+						   		{{ form_widget(field.fechaAlta)}}
+						   		{{ form_widget(field.fechaActualizado) }}
+						   </div>
+						   <div class="form-group">
+						   		<button class="eliminar boton" type="button" id="{{ loop.index0 }}">Eliminar Pago</button>
+	 					 	</div>
+				 		</div>
+			 	{% endfor %}
+			 </div>
+			 {% if form.pagos is not empty %}
+			 	<div class='form-group'>
+			 		<button type='submit'>Enviar</button>
+			 	</div>
+			 {% endif %} 
+		{{ form_end(form) }}
+	<h4>Cuotas Pagadas o Becadas</h4>
+	{% if cuotasRegistradas is empty %}
+	 		<p>El alumno no posee cuotas registradas</p>
+	 {% else %}
+		<div class="contenedorListadoPrincipal listadoCuotas">
+			<p class="anioCuota">A&ntilde;o</p>
+			<p class="mesCuota">Mes</p>
+			<p class="tipoCuota">Tipo</p>
+			<p class="numeroCuota">N&uacute;mero</p>
+			<p class="montoCuota">Monto</p>
+		</div>
+		{% for cuota in cuotasRegistradas %}
+			<div class="contenedorListado listadoCuotas">
+				<p class="titulo">A&ntilde;o</p>
+				<p class="anioCuota">{{ cuota.anio }}</p>
+				<p class="titulo">Mes</p>
+				<p class="mesCuota">{{ cuota.mes }}</p>
+				<p class="titulo">Tipo</p>
+				<p class="tipoCuota">{{ cuota.tipo }}</p>
+				<p class="titulo">N&uacute;mero</p>
+				<p class="numeroCuota">{{ cuota.numero }}</p>
+				<p class="titulo">Monto</p>
+				<p class="montoCuota">${{ cuota.monto }}</p>
+			</div>
+		{% endfor %}
+	{% endif %}
+		{# <div class="paginas">
+			<span>P&aacute;ginas</span>
+			<ul>
+				{% if paginaActualRegistradas > 1 %}
+					<a href="alumno.php?action=listadoCuotasDeUnAlumno&amp;id={{ alumno.idAlumno }}&amp;paginaRegistradas={{ paginaActualRegistradas - 1 }}&amp;paginaNoRegistradas={{ paginaActualNoRegistradas }}">Anterior</a>
+				{% endif %}
+				{% for i in 1..cantidadDePaginasRegistradas %}
+					<li><a href="alumno.php?action=listadoCuotasDeUnAlumno&amp;id={{ alumno.idAlumno }}&amp;paginaRegistradas={{ i }}&amp;paginaNoRegistradas={{ paginaActualNoRegistradas }} ">{{ i }} </a> | </li>
+				{% endfor %}
+				{% if paginaActualRegistradas < cantidadDePaginasRegistradas %}
+					<a href="alumno.php?action=listadoCuotasDeUnAlumno&amp;id={{ alumno.idAlumno }}&amp;paginaRegistradas={{ paginaActualRegistradas + 1 }}&amp;paginaNoRegistradas={{ paginaActualNoRegistradas }}">Siguiente</a>
+				{% endif %}
+			</ul>
+		</div> #}
+		<script type="text/javascript">
+			$(document).ready(function () {
+				var count = {{ form.pagos | length }};
+				var cantPagos = 0;
+				function agregarPago() {
+					var prototype = $("#lista-pagos").attr('data-prototype');
+					var nuevoPago = prototype.replace(/__name__/g,count);
+					count++;
+					cantPagos++;
+					if (cantPagos == 1) {
+						$("#formPagos").append("<div class='form-group'><button type='submit'>Enviar</button></div>");
+					}
+					$("#lista-pagos").append(nuevoPago);
+				}
+
+				$("#btnPago").click(function () {
+					agregarPago();
+				});
+
+				$(".eliminar").on("click",function (e) {
+					alert("hola");
+					//$("#pago" + this.id).remove();
+				});
+
+			});
+		</script>
+{% endblock container %}

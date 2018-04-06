@@ -1,0 +1,10 @@
+store:
+    resource: "@StoreBundle/Controller/"
+    type:     annotation
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+logout:
+    path: /logout

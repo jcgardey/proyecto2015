@@ -1,0 +1,60 @@
+{% extends 'baseBackend.html.twig' %}
+
+{% block title %}
+	<title>Listado de Cuotas</title>
+{% endblock title %}
+
+{% block container %}
+	<script>
+		function eliminarCuota (id) {
+			if (confirm("¿Esta seguro que quiere eliminar esta cuota?")) {
+				window.location = "cuota.php?action=eliminarCuota&id=" + id;
+			}
+		}
+	</script>
+
+	<h2>Listado de Cuotas</h2>
+	{% if app.session.flashBag.has('estado') %}
+		{% for mensaje in app.session.flashBag.get('estado') %}
+			<p>{{ mensaje }}</p>
+		{% endfor %}
+	{% endif %}
+	<div class="contenedorListadoPrincipal listadoCuotas">
+		<p class="anioCuota">A&ntilde;o</p>
+		<p class="mesCuota">Mes</p>
+		<p class="tipoCuota">Tipo</p>
+		<p class="numeroCuota">N&uacute;mero</p>
+		<p class="montoCuota">Monto</p>
+	</div>
+	{% for cuota in cuotas %}
+		<div class="contenedorListado listadoCuotas">
+			<p class="titulo">A&ntilde;o</p>
+			<p class="anioCuota">{{ cuota.anio }}</p>
+			<p class="titulo">Mes</p>
+			<p class="mesCuota">{{ cuota.mes }}</p>
+			<p class="titulo">Tipo</p>
+			<p class="tipoCuota">{{ cuota.tipo }}</p>
+			<p class="titulo">N&uacute;mero</p>
+			<p class="numeroCuota">{{ cuota.numero }}</p>
+			<p class="titulo">Monto</p>
+			<p class="montoCuota">${{ cuota.monto }}</p>
+			<div class="botones">
+				<a class="boton" href="{{ url('editar_cuota',{'id': cuota.id}) }}">Ver Detalles</a>
+			</div>
+		</div>
+	{% endfor %}
+	<div class="paginas">
+		<span>P&aacute;ginas</span>
+		<ul>
+			{% if paginaActual > 1 %}
+				<a href="{{ url('lista_cuotas',{'pagina': paginaActual - 1}) }}">Anterior</a>
+			{% endif %}
+			{% for i in 1..cantidadDePaginas %}
+				<li><a href="{{ url('lista_cuotas',{'pagina': i}) }}">{{ i }}</a> | </li>
+			{% endfor %}
+			{% if paginaActual < cantidadDePaginas %}
+				<a href="{{ url('lista_cuotas',{'pagina': paginaActual + 1}) }}">Siguiente</a>
+			{% endif %}
+		</ul>
+	</div>
+{% endblock container %}
