@@ -3,7 +3,8 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="initial-scale=1" />
-		<meta name="SelfRefactoringToken" content="05b44157-4cc7-4e47-a1f4-7cde0bdb4632"/>
+		<meta name="SelfRefactoringToken" content="6603ee16-c429-0d00-8771-3f3b0ee13094"/>
+
 		{% block title %}
 			<title>Bienvenido a Escuela Graduada Joaqu&iacute;n V. Gonz&aacute;lez</title>
 		{% endblock title %}
@@ -16,16 +17,27 @@
 			<script type="text/javascript" src="{{ asset('js/datepickerSpanish.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('js/OpenLayers-2.13.1/OpenLayers.js') }}"></script>
 
+			{# Self Refactoring #}
 			<script type=text/javascript type="text/javascript" src="https://selfrefactoring.s3.amazonaws.com/resources/jquery.htmlClean.min.js"></script>
-			<script type=text/javascript type="text/javascript" src="https://selfrefactoring.s3.amazonaws.com/resources/logger.js"></script>
+			<script type=text/javascript type="text/javascript" src="{{ asset('js/logger.js') }}"></script>
+			<script type=text/javascript type="text/javascript" src="{{ asset('js/metrics.js') }}"></script>
 			<script type="text/javascript" charset="utf-8">
-				$(function() {
+				/*$(function() {
 					xpathInstance = new XpathProcessor();
 					logger = new Logger("http://localhost:8080", true);
+					//logger = new Logger("http://autorefactoring.lifia.info.unlp.edu.ar", true);
+					logger.updateActiveVersion();
 					logger.loadUsabilityEventsLoggers();
+					logger.loadRefactorings();
+				});*/
+
+				$(document).ready(function() {
+					wrapElements();
+					HoverTime();
 				});
-			</script>
+			</script>																																												
 		{% endblock javascripts %}
+		
 		{% block stylesheets %}
 			<link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
 			<link rel="stylesheet" href="{{ asset('css/jquery-ui.css') }}" type="text/css">
